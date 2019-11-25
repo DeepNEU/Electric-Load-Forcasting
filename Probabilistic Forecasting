@@ -23,15 +23,16 @@ import keras
 
 def pinball_loss(y_true, y_pred):
     '''
-    r 邻域范围
-    location 记录真实值和预测值相比那个地方大，那个地方小
-    re 邻域的张量
-    e 真实值与预测值差距的绝对值
-    position 真实值与预测值差距的绝对值 与 邻域 的大小比较
-    h1 l2规范
-    h2 l1规范
-    h标准规范化后的数据
-    p损失值
+    The formula is shown in the picture named formula of Pinball-loss
+    r :   Neighborhood range   named ϵ in picture
+    location :  record the comparision between observed value and predicted value
+    re ： tensor of r
+    e  ： Absolute value of subtraction between observed value and predicted value
+    position ：record the comparision between e and re
+    h1 : first part of formula H 
+    h2 :second part of formula H 
+    h : result of formula H
+    p : value of loss function
     '''
     print('_true;')
     print(y_true.shape)
