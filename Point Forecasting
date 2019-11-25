@@ -37,11 +37,7 @@ def wave_net_activation(x):
 
 def residual_block(x, s, i, activation, nb_filters, kernel_size):
     original_x = x
-    '''
-    conv = Conv1D(filters=nb_filters, kernel_size=kernel_size,
-                  dilation_rate=2 ** i, padding='causal',
-                  name='dilated_conv_%d_tanh_s%d' % (2 ** i, s))(x)
-    '''
+    
     conv = Conv1D(filters=nb_filters, kernel_size=kernel_size,
                   dilation_rate=2 ** i,padding='same',
                   name='dilated_conv_%d_tanh_s%d' % (2 ** i, s))(x)
@@ -114,8 +110,6 @@ def dilated_tcn(num_feat, num_classes, nb_filters,
         tmp = clustering(x,i,max_len)
         x_all = keras.layers.concatenate([x_all, tmp])
    
-
-    #x = Lambda(x_c_multiply)([x,cw,max_len,number_cluster])
     
     x = Convolution1D(64, kernel_size, padding='same', name='initial_conv')(x_all)
     x = Convolution1D(nb_filters, kernel_size, padding='same', name='initial_conv_2')(x)
@@ -159,7 +153,6 @@ def dilated_tcn(num_feat, num_classes, nb_filters,
         # regression
 
         x = Dense(1)(x)
-        #print('2.x.shape=', x.shape)
         output_layer = Activation('linear', name='output_dense')(x)
         print(f'model.x = {input_layer.shape}')
         print(f'model.y = {output_layer.shape}')
